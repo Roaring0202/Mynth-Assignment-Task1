@@ -1,0 +1,17 @@
+version: '3'
+services:
+  rabbitmq:
+    image: "rabbitmq:management"
+    ports:
+      - "15672:15672"  # RabbitMQ Management Plugin UI
+      - "5672:5672"    # RabbitMQ Protocol
+  microserviceA:
+    build: ./microserviceA
+    ports:
+      - "3000:3000"
+    depends_on:
+      - rabbitmq
+  microserviceB:
+    build: ./microserviceB
+    depends_on:
+      - rabbitmq
